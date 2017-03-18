@@ -29,7 +29,7 @@ func New(out prospector.Outlet, prospectorConfigs []*common.Config) (*Crawler, e
 	}, nil
 }
 
-func (c *Crawler) Start(states file.States) error {
+func (c *Crawler) Start(states file.States, once bool) error {
 
 	logp.Info("Loading Prospectors: %v", len(c.prospectorConfigs))
 
@@ -40,7 +40,9 @@ func (c *Crawler) Start(states file.States) error {
 		if err != nil {
 			return fmt.Errorf("Error in initing prospector: %s", err)
 		}
-		c.prospectors = append(c.prospectors, prospector)
+		if prospector.IsEnabled() {
+			c.prospectors = append(c.prospectors, prospector)
+		}
 	}
 
 	logp.Info("Loading Prospectors completed. Number of prospectors: %v", len(c.prospectors))
@@ -54,7 +56,7 @@ func (c *Crawler) Start(states file.States) error {
 				logp.Debug("crawler", "Prospector %v stopped", id)
 			}()
 			logp.Debug("crawler", "Starting prospector %v", id)
-			prospector.Run()
+			prospector.Run(once)
 		}(i, p)
 	}
 
@@ -76,6 +78,10 @@ func (c *Crawler) Stop() {
 		c.wg.Add(1)
 		go stopProspector(p)
 	}
-	c.wg.Wait()
+	c.WaitForCompletion()
 	logp.Info("Crawler stopped")
+}
+
+func (c *Crawler) WaitForCompletion() {
+	c.wg.Wait()
 }

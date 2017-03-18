@@ -89,8 +89,12 @@ func (bt *Jmxproxybeat) Run(b *beat.Beat) error {
 					goto GotoFinish
 				case <-ticker.C:
 				}
-
-				err := bt.GetJMX(*u)
+				var err error
+				if bt.config.Combined {
+					err = bt.GetJMXCombined(*u)
+				} else {
+					err = bt.GetJMX(*u)
+				}
 				if err != nil {
 					logp.Err("Error while getttig JMX: %v", err)
 				}

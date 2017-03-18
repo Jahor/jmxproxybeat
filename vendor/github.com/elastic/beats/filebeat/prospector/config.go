@@ -10,6 +10,7 @@ import (
 
 var (
 	defaultConfig = prospectorConfig{
+		Enabled:        true,
 		IgnoreOlder:    0,
 		ScanFrequency:  10 * time.Second,
 		InputType:      cfg.DefaultInputType,
@@ -17,10 +18,12 @@ var (
 		CleanRemoved:   true,
 		HarvesterLimit: 0,
 		Symlinks:       false,
+		TailFiles:      false,
 	}
 )
 
 type prospectorConfig struct {
+	Enabled        bool             `config:"enabled"`
 	ExcludeFiles   []*regexp.Regexp `config:"exclude_files"`
 	IgnoreOlder    time.Duration    `config:"ignore_older"`
 	Paths          []string         `config:"paths"`
@@ -30,6 +33,7 @@ type prospectorConfig struct {
 	CleanRemoved   bool             `config:"clean_removed"`
 	HarvesterLimit uint64           `config:"harvester_limit" validate:"min=0"`
 	Symlinks       bool             `config:"symlinks"`
+	TailFiles      bool             `config:"tail_files"`
 }
 
 func (config *prospectorConfig) Validate() error {

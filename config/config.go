@@ -11,6 +11,7 @@ type Config struct {
 	Authentication Authentication `config:"authentication"`
 	Beans          []Bean         `config:"beans"`
 	Period         time.Duration  `config:"period"`
+	Combined       bool           `config:"combined"`
 }
 
 type SSL struct {
@@ -44,6 +45,7 @@ var (
 		SSL: SSL{
 			CAfile: "",
 		},
+		Combined: false,
 		Beans: []Bean{
 			{
 				Name: "java.lang:type=Memory",

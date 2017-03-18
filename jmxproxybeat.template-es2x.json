@@ -7,7 +7,7 @@
         }
       },
       "_meta": {
-        "version": "5.0.1"
+        "version": "5.2.2"
       },
       "dynamic_templates": [
         {
@@ -37,6 +37,147 @@
               "index": "not_analyzed",
               "type": "string"
             },
+            "java/lang:type=ClassLoading": {
+              "properties": {
+                "LoadedClassCount": {
+                  "type": "long"
+                },
+                "TotalLoadedClassCount": {
+                  "type": "long"
+                },
+                "UnloadedClassCount": {
+                  "type": "long"
+                }
+              }
+            },
+            "java/lang:type=Compilation": {
+              "properties": {
+                "TotalCompilationTime": {
+                  "type": "float"
+                }
+              }
+            },
+            "java/lang:type=Memory": {
+              "properties": {
+                "HeapMemoryUsage": {
+                  "properties": {
+                    "committed": {
+                      "type": "float"
+                    },
+                    "init": {
+                      "type": "float"
+                    },
+                    "max": {
+                      "type": "float"
+                    },
+                    "used": {
+                      "type": "float"
+                    }
+                  }
+                },
+                "NonHeapMemoryUsage": {
+                  "properties": {
+                    "committed": {
+                      "type": "float"
+                    },
+                    "init": {
+                      "type": "float"
+                    },
+                    "max": {
+                      "type": "float"
+                    },
+                    "used": {
+                      "type": "float"
+                    }
+                  }
+                }
+              }
+            },
+            "java/lang:type=OperatingSystem": {
+              "properties": {
+                "AvailableProcessors": {
+                  "type": "long"
+                },
+                "CommittedVirtualMemorySize": {
+                  "type": "float"
+                },
+                "FreePhysicalMemorySize": {
+                  "type": "float"
+                },
+                "FreeSwapSpaceSize": {
+                  "type": "float"
+                },
+                "MaxFileDescriptorCount": {
+                  "type": "long"
+                },
+                "ProcessCpuLoad": {
+                  "type": "float"
+                },
+                "ProcessCpuTime": {
+                  "type": "long"
+                },
+                "SystemCpuLoad": {
+                  "type": "float"
+                },
+                "SystemLoadAverage": {
+                  "type": "float"
+                },
+                "TotalPhysicalMemorySize": {
+                  "type": "float"
+                },
+                "TotalSwapSpaceSize": {
+                  "type": "float"
+                }
+              }
+            },
+            "java/lang:type=Threading": {
+              "properties": {
+                "CurrentThreadCpuTime": {
+                  "type": "float"
+                },
+                "CurrentThreadUserTime": {
+                  "type": "float"
+                },
+                "DaemonThreadCount": {
+                  "type": "long"
+                },
+                "PeakThreadCount": {
+                  "type": "long"
+                },
+                "ThreadCount": {
+                  "type": "long"
+                },
+                "TotalStartedThreadCount": {
+                  "type": "long"
+                }
+              }
+            },
+            "java/nio:type=BufferPool,name=direct": {
+              "properties": {
+                "Count": {
+                  "type": "float"
+                },
+                "MemoryUsed": {
+                  "type": "float"
+                },
+                "TotalCapacity": {
+                  "type": "float"
+                }
+              }
+            },
+            "java/nio:type=BufferPool,name=mapped": {
+              "properties": {
+                "Count": {
+                  "type": "float"
+                },
+                "MemoryUsed": {
+                  "type": "float"
+                },
+                "TotalCapacity": {
+                  "type": "float"
+                }
+              }
+            },
             "name": {
               "ignore_above": 1024,
               "index": "not_analyzed",
@@ -63,6 +204,44 @@
               "ignore_above": 1024,
               "index": "not_analyzed",
               "type": "string"
+            }
+          }
+        },
+        "meta": {
+          "properties": {
+            "cloud": {
+              "properties": {
+                "availability_zone": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "instance_id": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "machine_type": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "project_id": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "provider": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "region": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                }
+              }
             }
           }
         },
