@@ -3,7 +3,10 @@
 
 package config
 
-import "time"
+import (
+	"github.com/elastic/beats/libbeat/common"
+	"time"
+)
 
 type Config struct {
 	SSL            SSL            `config:"ssl"`
@@ -24,9 +27,12 @@ type Authentication struct {
 }
 
 type Bean struct {
-	Name       string      `config:"name"`
-	Attributes []Attribute `config:"attributes"`
-	Keys       []string    `config:"keys"`
+	Name                 string             `config:"name"`
+	Attributes           []Attribute        `config:"attributes"`
+	Keys                 []string           `config:"keys"`
+	FieldsUnderBean      bool               `config:"fields_under_bean"`
+	common.EventMetadata `config:",inline"` // Fields and tags to add to events.
+
 }
 
 type Attribute struct {
@@ -59,6 +65,7 @@ var (
 						Keys: []string{},
 					},
 				},
+				FieldsUnderBean: true,
 			},
 		},
 	}

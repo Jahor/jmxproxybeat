@@ -26,8 +26,8 @@ func (bt *Jmxproxybeat) GetJMXCombined(u url.URL) error {
 				for _, key := range att.Keys {
 					value, err := bt.GetJMXObjectValue(u, bean.Name, att.Name, key, bt.config.SSL.CAfile)
 					if err != nil {
-						logp.Err("Error requesting JMX: %v", err)
-						keys[key] = err
+						logp.Err("Error requesting '%s//%s//%s' JMX: %v", bean.Name, att.Name, key, err)
+						keys[key+"_error"] = err
 					} else {
 						keys[key] = value
 					}
@@ -37,8 +37,8 @@ func (bt *Jmxproxybeat) GetJMXCombined(u url.URL) error {
 					for _, key := range bean.Keys {
 						value, err := bt.GetJMXObjectValue(u, bean.Name, att.Name, key, bt.config.SSL.CAfile)
 						if err != nil {
-							logp.Err("Error requesting JMX: %v", err)
-							keys[key] = err
+							logp.Err("Error requesting '%s//%s//%s' JMX: %v", bean.Name, att.Name, key, err)
+							keys[key+"_error"] = err
 						} else {
 							keys[key] = value
 						}
@@ -46,8 +46,8 @@ func (bt *Jmxproxybeat) GetJMXCombined(u url.URL) error {
 				} else {
 					value, err := bt.GetJMXObjectValue(u, bean.Name, att.Name, "", bt.config.SSL.CAfile)
 					if err != nil {
-						logp.Err("Error requesting JMX: %v", err)
-						attributes[att.Name] = err
+						logp.Err("Error requesting '%s//%s' JMX: %v", bean.Name, att.Name, err)
+						attributes[att.Name+"_error"] = err
 					} else {
 						attributes[att.Name] = value
 					}
@@ -58,15 +58,25 @@ func (bt *Jmxproxybeat) GetJMXCombined(u url.URL) error {
 			}
 		}
 
+		beanData := common.MapStr{
+			"name":     bean.Name,
+			"hostname": u.Host,
+			strings.Replace(bean.Name, ".", "/", -1): attributes,
+		}
+		if bean.FieldsUnderBean {
+			common.MergeFields(beanData, bean.EventMetadata.Fields, true)
+		}
+
 		event := common.MapStr{
 			"@timestamp": common.Time(time.Now()),
-			"type":       "jmx",
-			"bean": common.MapStr{
-				"name":     bean.Name,
-				"hostname": u.Host,
-				strings.Replace(bean.Name, ".", "/", -1): attributes,
-			},
+			"type":       "jmx_combined",
+			"bean":       beanData,
 		}
+		common.AddTags(event, bean.EventMetadata.Tags)
+		if !bean.FieldsUnderBean {
+			common.MergeFields(event, bean.EventMetadata.Fields, bean.EventMetadata.FieldsUnderRoot)
+		}
+
 		bt.client.PublishEvent(event)
 		logp.Info("Event: %+v", event)
 	}
