@@ -1,9 +1,9 @@
 package beater
 
 import (
+	"github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"github.com/elastic/beats/libbeat/common"
 )
 
 func TestQuoted(t *testing.T) {
