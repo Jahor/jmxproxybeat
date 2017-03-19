@@ -1,9 +1,31 @@
+sudo: required
+dist: trusty
+services:
+  - docker
+
 language: go
 
 go:
-- 1.7.4
+  - 1.7.4
 
-sudo: false
+os:
+  - linux
+  - osx
+
+env:
+  matrix:
+    - TARGETS="check"
+    - TARGETS="ci"
+    - TARGETS="crosscompile"
+
+  global:
+    # Cross-compile for amd64 only to speed up testing.
+    - GOX_FLAGS="-arch amd64"
+
+addons:
+  apt:
+    packages:
+      - python-virtualenv
 
 before_install:
   # Redo the travis setup but with the radoondas/jmxproxybeat path. This is needed so the package path is correct
@@ -13,4 +35,10 @@ before_install:
   - cd $HOME/gopath/src/github.com/radoondas/jmxproxybeat
 
 install:
-  - make
+  - true
+
+script:
+  - make $TARGETS
+
+after_success:
+  - test -f build/coverage/full.cov && bash <(curl -s https://codecov.io/bash) -f build/coverage/full.cov

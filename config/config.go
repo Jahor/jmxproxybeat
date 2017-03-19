@@ -32,7 +32,6 @@ type Bean struct {
 	Keys                 []string           `config:"keys"`
 	FieldsUnderBean      bool               `config:"fields_under_bean"`
 	common.EventMetadata `config:",inline"` // Fields and tags to add to events.
-
 }
 
 type Attribute struct {

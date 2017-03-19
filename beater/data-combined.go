@@ -58,11 +58,25 @@ func (bt *Jmxproxybeat) GetJMXCombined(u url.URL) error {
 			}
 		}
 
-		beanData := common.MapStr{
-			"name":     bean.Name,
-			"hostname": u.Host,
-			strings.Replace(bean.Name, ".", "/", -1): attributes,
+		beanDomain, beanParameters := parseBeanName(bean.Name)
+		beanType, beanTypeOk := beanParameters["type"]
+		var beanDomainType string
+		if !beanTypeOk {
+			beanDomainType = strings.Replace(bean.Name, ".", "/", -1)
+		} else {
+			beanDomainType = beanDomain + ":" + beanType.(string)
 		}
+
+		beanData := common.MapStr{
+			"full_name":    bean.Name,
+			"domain":       beanDomain,
+			"hostname":     u.Host,
+			beanDomainType: attributes,
+		}
+		for k := range beanParameters {
+			beanData[k] = beanParameters[k]
+		}
+
 		if bean.FieldsUnderBean {
 			common.MergeFields(beanData, bean.EventMetadata.Fields, true)
 		}
@@ -82,6 +96,83 @@ func (bt *Jmxproxybeat) GetJMXCombined(u url.URL) error {
 	}
 
 	return nil
+}
+func parseBeanName(bean string) (string, common.MapStr) {
+	parts := strings.SplitN(bean, ":", 2)
+
+	if len(parts) == 2 {
+		domain := parts[0]
+		return domain, parseBeanParameters(parts[1])
+	}
+	return bean, common.MapStr{}
+}
+func parseBeanParameters(parametersString string) common.MapStr {
+	parameters := common.MapStr{}
+
+	start := 0
+	it := 0
+	for {
+		key := ""
+		var valueStart int = 0
+		for i, c := range parametersString[start:] {
+			if c == '=' {
+				valueStart = start + i + 1
+				break
+			} else {
+				key += string(c)
+			}
+		}
+
+		value := ""
+		if parametersString[valueStart] == '"' {
+
+			escaped := false
+			for i, c := range parametersString[valueStart+1:] {
+				if escaped {
+					value += string(c)
+					escaped = false
+				} else {
+					if c == '\\' {
+						escaped = true
+					} else if c == '"' {
+						start = valueStart + 1 + i + 2
+						break
+					} else {
+						value += string(c)
+					}
+				}
+			}
+		} else {
+			finished := false
+			for i, c := range parametersString[valueStart:] {
+				if c == ',' {
+					start = valueStart + i + 1
+					finished = true
+					break
+				} else {
+					value += string(c)
+				}
+			}
+
+			if !finished {
+				start = len(parametersString)
+			}
+		}
+		parameters[key] = value
+
+		if start >= len(parametersString) {
+			break
+		}
+
+		it += 1
+		if it > 10 {
+			parameters["fail"] = true
+			break
+		}
+
+	}
+
+	return parameters
 }
 
 func (bt *Jmxproxybeat) GetJMXObjectValue(u url.URL, name, attribute, key string, CAFile string) (float64, error) {
