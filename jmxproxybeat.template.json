@@ -24,161 +24,288 @@
         },
         "bean": {
           "properties": {
-            "attribute": {
+            "Catalina": {
+              "properties": {
+                "GlobalRequestProcessor": {
+                  "properties": {
+                    "bytesReceived": {
+                      "type": "long"
+                    },
+                    "bytesSent": {
+                      "type": "long"
+                    },
+                    "errorCount": {
+                      "type": "long"
+                    },
+                    "maxTime": {
+                      "type": "long"
+                    },
+                    "processingTime": {
+                      "type": "long"
+                    },
+                    "requestCount": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "ThreadPool": {
+                  "properties": {
+                    "acceptorThreadCount": {
+                      "type": "long"
+                    },
+                    "connectionCount": {
+                      "type": "long"
+                    },
+                    "currentThreadCount": {
+                      "type": "long"
+                    },
+                    "currentThreadsBusy": {
+                      "type": "long"
+                    },
+                    "maxConnections": {
+                      "type": "long"
+                    },
+                    "maxThreads": {
+                      "type": "long"
+                    },
+                    "minSpareThreads": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "domain": {
               "ignore_above": 1024,
               "type": "keyword"
+            },
+            "full_name": {
+              "norms": false,
+              "type": "text"
             },
             "hostname": {
               "ignore_above": 1024,
               "type": "keyword"
             },
-            "java/lang:type=ClassLoading": {
+            "java": {
               "properties": {
-                "LoadedClassCount": {
-                  "type": "long"
-                },
-                "TotalLoadedClassCount": {
-                  "type": "long"
-                },
-                "UnloadedClassCount": {
-                  "type": "long"
-                }
-              }
-            },
-            "java/lang:type=Compilation": {
-              "properties": {
-                "TotalCompilationTime": {
-                  "type": "float"
-                }
-              }
-            },
-            "java/lang:type=Memory": {
-              "properties": {
-                "HeapMemoryUsage": {
+                "lang": {
                   "properties": {
-                    "committed": {
-                      "type": "float"
+                    "ClassLoading": {
+                      "properties": {
+                        "LoadedClassCount": {
+                          "type": "long"
+                        },
+                        "TotalLoadedClassCount": {
+                          "type": "long"
+                        },
+                        "UnloadedClassCount": {
+                          "type": "long"
+                        }
+                      }
                     },
-                    "init": {
-                      "type": "float"
+                    "Compilation": {
+                      "properties": {
+                        "TotalCompilationTime": {
+                          "type": "float"
+                        }
+                      }
                     },
-                    "max": {
-                      "type": "float"
+                    "GarbageCollector": {
+                      "properties": {
+                        "CollectionCount": {
+                          "type": "long"
+                        },
+                        "CollectionTime": {
+                          "type": "long"
+                        },
+                        "LastGcInfo": {
+                          "properties": {
+                            "GcThreadCount": {
+                              "type": "long"
+                            },
+                            "duration": {
+                              "type": "long"
+                            },
+                            "endTime": {
+                              "type": "long"
+                            },
+                            "id": {
+                              "type": "long"
+                            }
+                          }
+                        }
+                      }
                     },
-                    "used": {
-                      "type": "float"
+                    "Memory": {
+                      "properties": {
+                        "HeapMemoryUsage": {
+                          "properties": {
+                            "committed": {
+                              "type": "float"
+                            },
+                            "init": {
+                              "type": "float"
+                            },
+                            "max": {
+                              "type": "float"
+                            },
+                            "used": {
+                              "type": "float"
+                            }
+                          }
+                        },
+                        "NonHeapMemoryUsage": {
+                          "properties": {
+                            "committed": {
+                              "type": "float"
+                            },
+                            "init": {
+                              "type": "float"
+                            },
+                            "max": {
+                              "type": "float"
+                            },
+                            "used": {
+                              "type": "float"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "MemoryPool": {
+                      "properties": {
+                        "PeakUsage": {
+                          "properties": {
+                            "committed": {
+                              "type": "float"
+                            },
+                            "init": {
+                              "type": "float"
+                            },
+                            "max": {
+                              "type": "float"
+                            },
+                            "used": {
+                              "type": "float"
+                            }
+                          }
+                        },
+                        "Usage": {
+                          "properties": {
+                            "committed": {
+                              "type": "float"
+                            },
+                            "init": {
+                              "type": "float"
+                            },
+                            "max": {
+                              "type": "float"
+                            },
+                            "used": {
+                              "type": "float"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "OperatingSystem": {
+                      "properties": {
+                        "AvailableProcessors": {
+                          "type": "long"
+                        },
+                        "CommittedVirtualMemorySize": {
+                          "type": "float"
+                        },
+                        "FreePhysicalMemorySize": {
+                          "type": "float"
+                        },
+                        "FreeSwapSpaceSize": {
+                          "type": "float"
+                        },
+                        "MaxFileDescriptorCount": {
+                          "type": "long"
+                        },
+                        "ProcessCpuLoad": {
+                          "type": "float"
+                        },
+                        "ProcessCpuTime": {
+                          "type": "long"
+                        },
+                        "SystemCpuLoad": {
+                          "type": "float"
+                        },
+                        "SystemLoadAverage": {
+                          "type": "float"
+                        },
+                        "TotalPhysicalMemorySize": {
+                          "type": "float"
+                        },
+                        "TotalSwapSpaceSize": {
+                          "type": "float"
+                        }
+                      }
+                    },
+                    "Runtime": {
+                      "properties": {
+                        "StartTime": {
+                          "type": "long"
+                        },
+                        "Uptime": {
+                          "type": "long"
+                        }
+                      }
+                    },
+                    "Threading": {
+                      "properties": {
+                        "CurrentThreadCpuTime": {
+                          "type": "float"
+                        },
+                        "CurrentThreadUserTime": {
+                          "type": "float"
+                        },
+                        "DaemonThreadCount": {
+                          "type": "long"
+                        },
+                        "PeakThreadCount": {
+                          "type": "long"
+                        },
+                        "ThreadCount": {
+                          "type": "long"
+                        },
+                        "TotalStartedThreadCount": {
+                          "type": "long"
+                        }
+                      }
                     }
                   }
                 },
-                "NonHeapMemoryUsage": {
+                "nio": {
                   "properties": {
-                    "committed": {
-                      "type": "float"
-                    },
-                    "init": {
-                      "type": "float"
-                    },
-                    "max": {
-                      "type": "float"
-                    },
-                    "used": {
-                      "type": "float"
+                    "BufferPool": {
+                      "properties": {
+                        "Count": {
+                          "type": "float"
+                        },
+                        "MemoryUsed": {
+                          "type": "float"
+                        },
+                        "TotalCapacity": {
+                          "type": "float"
+                        }
+                      }
                     }
                   }
-                }
-              }
-            },
-            "java/lang:type=OperatingSystem": {
-              "properties": {
-                "AvailableProcessors": {
-                  "type": "long"
-                },
-                "CommittedVirtualMemorySize": {
-                  "type": "float"
-                },
-                "FreePhysicalMemorySize": {
-                  "type": "float"
-                },
-                "FreeSwapSpaceSize": {
-                  "type": "float"
-                },
-                "MaxFileDescriptorCount": {
-                  "type": "long"
-                },
-                "ProcessCpuLoad": {
-                  "type": "float"
-                },
-                "ProcessCpuTime": {
-                  "type": "long"
-                },
-                "SystemCpuLoad": {
-                  "type": "float"
-                },
-                "SystemLoadAverage": {
-                  "type": "float"
-                },
-                "TotalPhysicalMemorySize": {
-                  "type": "float"
-                },
-                "TotalSwapSpaceSize": {
-                  "type": "float"
-                }
-              }
-            },
-            "java/lang:type=Threading": {
-              "properties": {
-                "CurrentThreadCpuTime": {
-                  "type": "float"
-                },
-                "CurrentThreadUserTime": {
-                  "type": "float"
-                },
-                "DaemonThreadCount": {
-                  "type": "long"
-                },
-                "PeakThreadCount": {
-                  "type": "long"
-                },
-                "ThreadCount": {
-                  "type": "long"
-                },
-                "TotalStartedThreadCount": {
-                  "type": "long"
-                }
-              }
-            },
-            "java/nio:type=BufferPool,name=direct": {
-              "properties": {
-                "Count": {
-                  "type": "float"
-                },
-                "MemoryUsed": {
-                  "type": "float"
-                },
-                "TotalCapacity": {
-                  "type": "float"
-                }
-              }
-            },
-            "java/nio:type=BufferPool,name=mapped": {
-              "properties": {
-                "Count": {
-                  "type": "float"
-                },
-                "MemoryUsed": {
-                  "type": "float"
-                },
-                "TotalCapacity": {
-                  "type": "float"
                 }
               }
             },
             "name": {
+              "norms": false,
+              "type": "text"
+            },
+            "type": {
               "ignore_above": 1024,
               "type": "keyword"
-            },
-            "value": {
-              "type": "float"
             }
           }
         },

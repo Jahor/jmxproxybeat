@@ -136,14 +136,6 @@ Contains metrics from JMX bean.
 
 
 [float]
-=== bean.name
-
-type: keyword
-
-Name of the Bean which is retrieved.
-
-
-[float]
 === bean.hostname
 
 type: keyword
@@ -152,30 +144,39 @@ The hostname of JVM from which metrics are retrieved.
 
 
 [float]
-=== bean.attribute
+=== bean.domain
 
 type: keyword
 
-The name of requested attribute.
+[float]
+=== bean.name
+
+type: text
+
+[float]
+=== bean.full_name
+
+type: text
+
+Name of the Bean which is retrieved.
 
 
 [float]
-=== bean.value
+=== bean.type
 
-type: float
+type: keyword
 
-Value of the attribute.
 
 
 [float]
-== java/lang:type=OperatingSystem Fields
+== OperatingSystem Fields
 
 System properties about the operating system on which the Java virtual machine is running.
 
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.AvailableProcessors
+=== bean.java.lang.OperatingSystem.AvailableProcessors
 
 type: long
 
@@ -183,7 +184,7 @@ Number of processors available to the Java virtual machine.
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.CommittedVirtualMemorySize
+=== bean.java.lang.OperatingSystem.CommittedVirtualMemorySize
 
 type: float
 
@@ -192,7 +193,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.FreePhysicalMemorySize
+=== bean.java.lang.OperatingSystem.FreePhysicalMemorySize
 
 type: float
 
@@ -201,7 +202,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.FreeSwapSpaceSize
+=== bean.java.lang.OperatingSystem.FreeSwapSpaceSize
 
 type: float
 
@@ -210,14 +211,14 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.MaxFileDescriptorCount
+=== bean.java.lang.OperatingSystem.MaxFileDescriptorCount
 
 type: long
 
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.ProcessCpuLoad
+=== bean.java.lang.OperatingSystem.ProcessCpuLoad
 
 type: float
 
@@ -226,7 +227,7 @@ format: percent
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.ProcessCpuTime
+=== bean.java.lang.OperatingSystem.ProcessCpuTime
 
 type: long
 
@@ -235,7 +236,7 @@ format: duration
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.SystemCpuLoad
+=== bean.java.lang.OperatingSystem.SystemCpuLoad
 
 type: float
 
@@ -244,7 +245,7 @@ format: percent
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.SystemLoadAverage
+=== bean.java.lang.OperatingSystem.SystemLoadAverage
 
 type: float
 
@@ -253,7 +254,7 @@ format: percent
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.TotalPhysicalMemorySize
+=== bean.java.lang.OperatingSystem.TotalPhysicalMemorySize
 
 type: float
 
@@ -262,7 +263,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=OperatingSystem.TotalSwapSpaceSize
+=== bean.java.lang.OperatingSystem.TotalSwapSpaceSize
 
 type: float
 
@@ -271,40 +272,40 @@ format: bytes
 
 
 [float]
-== java/lang:type=ClassLoading Fields
+== ClassLoading Fields
 
 
 
 
 [float]
-=== bean.java/lang:type=ClassLoading.LoadedClassCount
+=== bean.java.lang.ClassLoading.LoadedClassCount
 
 type: long
 
 
 
 [float]
-=== bean.java/lang:type=ClassLoading.TotalLoadedClassCount
+=== bean.java.lang.ClassLoading.TotalLoadedClassCount
 
 type: long
 
 
 
 [float]
-=== bean.java/lang:type=ClassLoading.UnloadedClassCount
+=== bean.java.lang.ClassLoading.UnloadedClassCount
 
 type: long
 
 
 
 [float]
-== java/lang:type=Threading Fields
+== Threading Fields
 
 
 
 
 [float]
-=== bean.java/lang:type=Threading.CurrentThreadCpuTime
+=== bean.java.lang.Threading.CurrentThreadCpuTime
 
 type: float
 
@@ -313,7 +314,7 @@ format: duration
 
 
 [float]
-=== bean.java/lang:type=Threading.CurrentThreadUserTime
+=== bean.java.lang.Threading.CurrentThreadUserTime
 
 type: float
 
@@ -322,41 +323,41 @@ format: duration
 
 
 [float]
-=== bean.java/lang:type=Threading.DaemonThreadCount
+=== bean.java.lang.Threading.DaemonThreadCount
 
 type: long
 
 
 
 [float]
-=== bean.java/lang:type=Threading.PeakThreadCount
+=== bean.java.lang.Threading.PeakThreadCount
 
 type: long
 
 
 
 [float]
-=== bean.java/lang:type=Threading.ThreadCount
+=== bean.java.lang.Threading.ThreadCount
 
 type: long
 
 
 
 [float]
-=== bean.java/lang:type=Threading.TotalStartedThreadCount
+=== bean.java.lang.Threading.TotalStartedThreadCount
 
 type: long
 
 
 
 [float]
-== java/lang:type=Compilation Fields
+== Compilation Fields
 
 
 
 
 [float]
-=== bean.java/lang:type=Compilation.TotalCompilationTime
+=== bean.java.lang.Compilation.TotalCompilationTime
 
 type: float
 
@@ -365,65 +366,7 @@ format: duration
 
 
 [float]
-== java/nio:type=BufferPool,name=direct Fields
-
-
-
-
-[float]
-=== bean.java/nio:type=BufferPool,name=direct.Count
-
-type: float
-
-
-
-[float]
-=== bean.java/nio:type=BufferPool,name=direct.MemoryUsed
-
-type: float
-
-format: bytes
-
-
-
-[float]
-=== bean.java/nio:type=BufferPool,name=direct.TotalCapacity
-
-type: float
-
-
-
-[float]
-== java/nio:type=BufferPool,name=mapped Fields
-
-
-
-
-[float]
-=== bean.java/nio:type=BufferPool,name=mapped.Count
-
-type: float
-
-
-
-[float]
-=== bean.java/nio:type=BufferPool,name=mapped.MemoryUsed
-
-type: float
-
-format: bytes
-
-
-
-[float]
-=== bean.java/nio:type=BufferPool,name=mapped.TotalCapacity
-
-type: float
-
-
-
-[float]
-== java/lang:type=Memory Fields
+== Memory Fields
 
 
 
@@ -435,7 +378,7 @@ type: float
 
 
 [float]
-=== bean.java/lang:type=Memory.HeapMemoryUsage.committed
+=== bean.java.lang.Memory.HeapMemoryUsage.committed
 
 type: float
 
@@ -444,7 +387,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=Memory.HeapMemoryUsage.init
+=== bean.java.lang.Memory.HeapMemoryUsage.init
 
 type: float
 
@@ -453,7 +396,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=Memory.HeapMemoryUsage.max
+=== bean.java.lang.Memory.HeapMemoryUsage.max
 
 type: float
 
@@ -462,7 +405,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=Memory.HeapMemoryUsage.used
+=== bean.java.lang.Memory.HeapMemoryUsage.used
 
 type: float
 
@@ -477,7 +420,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=Memory.NonHeapMemoryUsage.committed
+=== bean.java.lang.Memory.NonHeapMemoryUsage.committed
 
 type: float
 
@@ -486,7 +429,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=Memory.NonHeapMemoryUsage.init
+=== bean.java.lang.Memory.NonHeapMemoryUsage.init
 
 type: float
 
@@ -495,7 +438,7 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=Memory.NonHeapMemoryUsage.max
+=== bean.java.lang.Memory.NonHeapMemoryUsage.max
 
 type: float
 
@@ -504,11 +447,252 @@ format: bytes
 
 
 [float]
-=== bean.java/lang:type=Memory.NonHeapMemoryUsage.used
+=== bean.java.lang.Memory.NonHeapMemoryUsage.used
 
 type: float
 
 format: bytes
 
 
+
+[float]
+== MemoryPool Fields
+
+
+
+
+
+[float]
+=== bean.java.lang.MemoryPool.Usage.committed
+
+type: float
+
+format: bytes
+
+
+
+[float]
+=== bean.java.lang.MemoryPool.Usage.init
+
+type: float
+
+format: bytes
+
+
+
+[float]
+=== bean.java.lang.MemoryPool.Usage.max
+
+type: float
+
+format: bytes
+
+
+
+[float]
+=== bean.java.lang.MemoryPool.Usage.used
+
+type: float
+
+format: bytes
+
+
+
+
+[float]
+=== bean.java.lang.MemoryPool.PeakUsage.committed
+
+type: float
+
+format: bytes
+
+
+
+[float]
+=== bean.java.lang.MemoryPool.PeakUsage.init
+
+type: float
+
+format: bytes
+
+
+
+[float]
+=== bean.java.lang.MemoryPool.PeakUsage.max
+
+type: float
+
+format: bytes
+
+
+
+[float]
+=== bean.java.lang.MemoryPool.PeakUsage.used
+
+type: float
+
+format: bytes
+
+
+
+
+[float]
+=== bean.java.lang.Runtime.Uptime
+
+type: long
+
+format: duration
+
+[float]
+=== bean.java.lang.Runtime.StartTime
+
+type: long
+
+
+[float]
+=== bean.java.lang.GarbageCollector.CollectionCount
+
+type: long
+
+[float]
+=== bean.java.lang.GarbageCollector.CollectionTime
+
+type: long
+
+format: duration
+
+
+[float]
+=== bean.java.lang.GarbageCollector.LastGcInfo.GcThreadCount
+
+type: long
+
+[float]
+=== bean.java.lang.GarbageCollector.LastGcInfo.duration
+
+type: long
+
+format: duration
+
+[float]
+=== bean.java.lang.GarbageCollector.LastGcInfo.endTime
+
+type: long
+
+[float]
+=== bean.java.lang.GarbageCollector.LastGcInfo.id
+
+type: long
+
+
+[float]
+== BufferPool Fields
+
+
+
+
+[float]
+=== bean.java.nio.BufferPool.Count
+
+type: float
+
+
+
+[float]
+=== bean.java.nio.BufferPool.MemoryUsed
+
+type: float
+
+format: bytes
+
+
+
+[float]
+=== bean.java.nio.BufferPool.TotalCapacity
+
+type: float
+
+
+
+[float]
+== Catalina Fields
+
+Tomcat beans
+
+
+
+
+[float]
+=== bean.Catalina.GlobalRequestProcessor.requestCount
+
+type: long
+
+[float]
+=== bean.Catalina.GlobalRequestProcessor.maxTime
+
+type: long
+
+format: duration
+
+[float]
+=== bean.Catalina.GlobalRequestProcessor.processingTime
+
+type: long
+
+format: duration
+
+[float]
+=== bean.Catalina.GlobalRequestProcessor.bytesReceived
+
+type: long
+
+format: bytes
+
+[float]
+=== bean.Catalina.GlobalRequestProcessor.bytesSent
+
+type: long
+
+format: bytes
+
+[float]
+=== bean.Catalina.GlobalRequestProcessor.errorCount
+
+type: long
+
+
+[float]
+=== bean.Catalina.ThreadPool.currentThreadsBusy
+
+type: long
+
+[float]
+=== bean.Catalina.ThreadPool.currentThreadCount
+
+type: long
+
+[float]
+=== bean.Catalina.ThreadPool.maxThreads
+
+type: long
+
+[float]
+=== bean.Catalina.ThreadPool.acceptorThreadCount
+
+type: long
+
+[float]
+=== bean.Catalina.ThreadPool.connectionCount
+
+type: long
+
+[float]
+=== bean.Catalina.ThreadPool.maxConnections
+
+type: long
+
+[float]
+=== bean.Catalina.ThreadPool.minSpareThreads
+
+type: long
 

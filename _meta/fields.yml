@@ -10,235 +10,385 @@
         Contains metrics from JMX bean.
 
       fields:
-        - name: name
-          type: keyword
-          description: >
-           Name of the Bean which is retrieved.
-
         - name: hostname
           type: keyword
           description: >
             The hostname of JVM from which metrics are retrieved.
 
-        - name: attribute
+        - name: domain
           type: keyword
-          description: >
-            The name of requested attribute.
 
-        - name: value
-          type: float
-          description: >
-            Value of the attribute.
+        - name: name
+          type: text
 
-        - name: "java/lang:type=OperatingSystem"
+        - name: full_name
+          type: text
+          description: >
+            Name of the Bean which is retrieved.
+
+        - name: type
+          type: keyword
+
+        - name: java
           type: group
-          description: >
-            System properties about the operating system on which the Java virtual machine is running.
 
           fields:
-            - name: AvailableProcessors
-              type: long
-              description: >
-                 Number of processors available to the Java virtual machine.
-            - name: CommittedVirtualMemorySize
-              type: float
-              format: bytes
-              description: >
-
-            - name: FreePhysicalMemorySize
-              type: float
-              format: bytes
-              description: >
-
-            - name: FreeSwapSpaceSize
-              type: float
-              format: bytes
-              description: >
-
-            - name: MaxFileDescriptorCount
-              type: long
-              description: >
-
-            - name: ProcessCpuLoad
-              type: float
-              format: percent
-              description: >
-
-            - name: ProcessCpuTime
-              type: long
-              format: duration
-              description: >
-
-            - name: SystemCpuLoad
-              type: float
-              format: percent
-              description: >
-
-            - name: SystemLoadAverage
-              type: float
-              format: percent
-              description: >
-
-            - name: TotalPhysicalMemorySize
-              type: float
-              format: bytes
-              description: >
-
-            - name: TotalSwapSpaceSize
-              type: float
-              format: bytes
-              description: >
-
-        - name: "java/lang:type=ClassLoading"
-          type: group
-          description: >
-
-          fields:
-            - name: LoadedClassCount
-              type: long
-              description: >
-
-            - name: TotalLoadedClassCount
-              type: long
-              description: >
-
-            - name: UnloadedClassCount
-              type: long
-              description: >
-
-        - name: "java/lang:type=Threading"
-          type: group
-          description: >
-
-          fields:
-            - name: CurrentThreadCpuTime
-              type: float
-              format: duration
-              description: >
-
-            - name: CurrentThreadUserTime
-              type: float
-              format: duration
-              description: >
-
-            - name: DaemonThreadCount
-              type: long
-              description: >
-
-            - name: PeakThreadCount
-              type: long
-              description: >
-
-            - name: ThreadCount
-              type: long
-              description: >
-
-            - name: TotalStartedThreadCount
-              type: long
-              description: >
-
-        - name: "java/lang:type=Compilation"
-          type: group
-          description: >
-
-          fields:
-            - name: TotalCompilationTime
-              type: float
-              format: duration
-              description: >
-
-        - name: "java/nio:type=BufferPool,name=direct"
-          type: group
-          description: >
-
-          fields:
-            - name: Count
-              type: float
-              description: >
-
-            - name: MemoryUsed
-              type: float
-              format: bytes
-              description: >
-
-            - name: TotalCapacity
-              type: float
-              description: >
-
-        - name: "java/nio:type=BufferPool,name=mapped"
-          type: group
-          description: >
-
-          fields:
-            - name: Count
-              type: float
-              description: >
-
-            - name: MemoryUsed
-              type: float
-              format: bytes
-              description: >
-
-            - name: TotalCapacity
-              type: float
-              description: >
-
-        - name: "java/lang:type=Memory"
-          type: group
-          description: >
-
-          fields:
-            - name: HeapMemoryUsage
+            - name: lang
               type: group
-              description: >
 
               fields:
-               - name: committed
-                 type: float
-                 format: bytes
-                 description: >
+                - name: OperatingSystem
+                  type: group
+                  description: >
+                    System properties about the operating system on which the Java virtual machine is running.
 
-               - name: init
-                 type: float
-                 format: bytes
-                 description: >
+                  fields:
+                    - name: AvailableProcessors
+                      type: long
+                      description: >
+                         Number of processors available to the Java virtual machine.
+                    - name: CommittedVirtualMemorySize
+                      type: float
+                      format: bytes
+                      description: >
 
-               - name: max
-                 type: float
-                 format: bytes
-                 description: >
+                    - name: FreePhysicalMemorySize
+                      type: float
+                      format: bytes
+                      description: >
 
-               - name: used
-                 type: float
-                 format: bytes
-                 description: >
+                    - name: FreeSwapSpaceSize
+                      type: float
+                      format: bytes
+                      description: >
 
-            - name: NonHeapMemoryUsage
+                    - name: MaxFileDescriptorCount
+                      type: long
+                      description: >
+
+                    - name: ProcessCpuLoad
+                      type: float
+                      format: percent
+                      description: >
+
+                    - name: ProcessCpuTime
+                      type: long
+                      format: duration
+                      format_parameters:
+                        inputFormat: nanoseconds
+                        outputFormat: humanize
+                      description: >
+
+                    - name: SystemCpuLoad
+                      type: float
+                      format: percent
+                      description: >
+
+                    - name: SystemLoadAverage
+                      type: float
+                      format: percent
+                      description: >
+
+                    - name: TotalPhysicalMemorySize
+                      type: float
+                      format: bytes
+                      description: >
+
+                    - name: TotalSwapSpaceSize
+                      type: float
+                      format: bytes
+                      description: >
+
+                - name: ClassLoading
+                  type: group
+                  description: >
+
+                  fields:
+                    - name: LoadedClassCount
+                      type: long
+                      description: >
+
+                    - name: TotalLoadedClassCount
+                      type: long
+                      description: >
+
+                    - name: UnloadedClassCount
+                      type: long
+                      description: >
+
+                - name: Threading
+                  type: group
+                  description: >
+
+                  fields:
+                    - name: CurrentThreadCpuTime
+                      type: float
+                      format: duration
+                      format_parameters:
+                        inputFormat: nanoseconds
+                        outputFormat: humanize
+                      description: >
+
+                    - name: CurrentThreadUserTime
+                      type: float
+                      format: duration
+                      format_parameters:
+                        inputFormat: nanoseconds
+                        outputFormat: humanize
+                      description: >
+
+                    - name: DaemonThreadCount
+                      type: long
+                      description: >
+
+                    - name: PeakThreadCount
+                      type: long
+                      description: >
+
+                    - name: ThreadCount
+                      type: long
+                      description: >
+
+                    - name: TotalStartedThreadCount
+                      type: long
+                      description: >
+
+                - name: Compilation
+                  type: group
+                  description: >
+
+                  fields:
+                    - name: TotalCompilationTime
+                      type: float
+                      format: duration
+                      format_parameters:
+                        inputFormat: milliseconds
+                        outputFormat: humanize
+                      description: >
+
+                - name: Memory
+                  type: group
+                  description: >
+
+                  fields:
+                    - name: HeapMemoryUsage
+                      type: group
+                      description: >
+
+                      fields:
+                       - name: committed
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: init
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: max
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: used
+                         type: float
+                         format: bytes
+                         description: >
+
+                    - name: NonHeapMemoryUsage
+                      type: group
+                      description: >
+
+                      fields:
+                       - name: committed
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: init
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: max
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: used
+                         type: float
+                         format: bytes
+                         description: >
+
+                - name: MemoryPool
+                  type: group
+                  description: >
+                  fields:
+                    - name: Usage
+                      type: group
+                      fields:
+                       - name: committed
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: init
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: max
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: used
+                         type: float
+                         format: bytes
+                         description: >
+                    - name: PeakUsage
+                      type: group
+                      fields:
+                       - name: committed
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: init
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: max
+                         type: float
+                         format: bytes
+                         description: >
+
+                       - name: used
+                         type: float
+                         format: bytes
+                         description: >
+                - name: Runtime
+                  type: group
+                  fields:
+                    - name: Uptime
+                      type: long
+                      format: duration
+                      format_parameters:
+                        inputFormat: milliseconds
+                        outputFormat: humanize
+
+                    - name: StartTime
+                      type: long
+
+                - name: GarbageCollector
+                  type: group
+                  fields:
+                    - name: CollectionCount
+                      type: long
+
+                    - name: CollectionTime
+                      type: long
+                      format: duration
+                      format_parameters:
+                        inputFormat: milliseconds
+                        outputFormat: humanize
+
+                    - name: LastGcInfo
+                      type: group
+                      fields:
+                        - name: GcThreadCount
+                          type: long
+                        - name: duration
+                          type: long
+                          format: duration
+                          format_parameters:
+                            inputFormat: milliseconds
+                            outputFormat: humanize
+                        - name: endTime
+                          type: long
+                        - name: id
+                          type: long
+
+            - name: nio
               type: group
-              description: >
 
               fields:
-               - name: committed
-                 type: float
-                 format: bytes
-                 description: >
+                - name: "BufferPool"
+                  type: group
+                  description: >
 
-               - name: init
-                 type: float
-                 format: bytes
-                 description: >
+                  fields:
+                    - name: Count
+                      type: float
+                      description: >
 
-               - name: max
-                 type: float
-                 format: bytes
-                 description: >
+                    - name: MemoryUsed
+                      type: float
+                      format: bytes
+                      description: >
 
-               - name: used
-                 type: float
-                 format: bytes
-                 description: >
+                    - name: TotalCapacity
+                      type: float
+                      description: >
 
+        - name: Catalina
+          type: group
+          description: >
+            Tomcat beans
+          fields:
+            - name: GlobalRequestProcessor
+              type: group
+              fields:
+                - name: requestCount
+                  type: long
 
+                - name: maxTime
+                  type: long
+                  format: duration
+                  format_parameters:
+                    inputFormat: milliseconds
+                    outputFormat: humanize
 
+                - name: processingTime
+                  type: long
+                  format: duration
+                  format_parameters:
+                    inputFormat: milliseconds
+                    outputFormat: humanize
 
+                - name: bytesReceived
+                  type: long
+                  format: bytes
 
+                - name: bytesSent
+                  type: long
+                  format: bytes
+
+                - name: errorCount
+                  type: long
+
+            - name: ThreadPool
+              type: group
+              fields:
+                - name: currentThreadsBusy
+                  type: long
+
+                - name: currentThreadCount
+                  type: long
+
+                - name: maxThreads
+                  type: long
+
+                - name: acceptorThreadCount
+                  type: long
+
+                - name: connectionCount
+                  type: long
+
+                - name: maxConnections
+                  type: long
+
+                - name: minSpareThreads
+                  type: long

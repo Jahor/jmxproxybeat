@@ -62,17 +62,17 @@ func (bt *Jmxproxybeat) GetJMXCombined(u url.URL) error {
 		beanType, beanTypeOk := beanParameters["type"]
 		var beanDomainType string
 		if !beanTypeOk {
-			beanDomainType = strings.Replace(bean.Name, ".", "/", -1)
+			beanDomainType = bean.Name
 		} else {
-			beanDomainType = beanDomain + ":" + beanType.(string)
+			beanDomainType = beanDomain + "." + beanType.(string)
 		}
 
-		beanData := common.MapStr{
-			"full_name":    bean.Name,
-			"domain":       beanDomain,
-			"hostname":     u.Host,
-			beanDomainType: attributes,
-		}
+		beanData := deepMap(beanDomainType, attributes)
+
+		beanData["full_name"] = bean.Name
+		beanData["domain"] = beanDomain
+		beanData["hostname"] = u.Host
+
 		for k := range beanParameters {
 			beanData[k] = beanParameters[k]
 		}
@@ -97,6 +97,20 @@ func (bt *Jmxproxybeat) GetJMXCombined(u url.URL) error {
 
 	return nil
 }
+func deepMap(name string, content common.MapStr) common.MapStr {
+	parts := strings.SplitN(name, ".", 2)
+
+	if len(parts) == 2 {
+		return common.MapStr{
+			parts[0]: deepMap(parts[1], content),
+		}
+
+	}
+	return common.MapStr{
+		parts[0]: content,
+	}
+}
+
 func parseBeanName(bean string) (string, common.MapStr) {
 	parts := strings.SplitN(bean, ":", 2)
 
